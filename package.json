@@ -1,30 +1,29 @@
 {
   "name": "maze-solver-visualizer",
   "version": "1.0.0",
-  "description": "A React Native maze solver and visualizer with multiple pathfinding algorithms",
-  "main": "index.js",
+  "description": "An Expo React Native maze solver and visualizer with multiple pathfinding algorithms",
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "react-native start",
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~3.1.3",
+    "expo": "~50.0.0",
+    "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-native": "0.73.2",
-    "react-native-gesture-handler": "^2.14.1",
-    "react-native-reanimated": "^3.6.1"
+    "react-native-web": "~0.19.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.7",
-    "@babel/preset-env": "^7.23.7",
-    "@babel/runtime": "^7.23.7",
-    "@react-native/babel-preset": "^0.73.19",
-    "@react-native/metro-config": "^0.73.3",
-    "metro-react-native-babel-preset": "^0.77.0"
+    "@babel/core": "^7.20.0"
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "private": true
 }

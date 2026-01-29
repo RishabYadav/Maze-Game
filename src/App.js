@@ -30,8 +30,8 @@ const App = () => {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState("BFS");
   const [stats, setStats] = useState(null);
 
-  // Calculate cell size based on screen width
-  const cellSize = Math.floor((width - 40) / maze[0].length);
+  // Calculate cell size to match reference image - approximately 600px total width
+  const cellSize = Math.floor(600 / maze[0].length);
 
   const handleReset = useCallback(() => {
     setMaze(resetMazeVisualization(copyMaze(PREDEFINED_MAZE)));
@@ -126,17 +126,20 @@ const App = () => {
       <StatusBar barStyle="dark-content" />
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Text style={styles.title}>🧩 Maze Solver & Visualizer</Text>
+          <Text style={styles.title}>Maze Solver & Visualizer</Text>
           <Text style={styles.subtitle}>
             Find the path from Start (S) to End (E)
           </Text>
         </View>
 
-        <View style={styles.mazeContainer}>
-          <MazeGrid maze={maze} cellSize={cellSize} />
+        <View style={styles.mazeSection}>
+          <Text style={styles.stateLabel}>
+            {!stats ? "Initial State" : stats.found ? "Right" : "Wrong"}
+          </Text>
+          <View style={styles.mazeContainer}>
+            <MazeGrid maze={maze} cellSize={cellSize} />
+          </View>
         </View>
-
-        <Legend />
 
         {stats && (
           <View style={styles.statsContainer}>
@@ -175,20 +178,22 @@ const App = () => {
             style={styles.controlButton}
           />
           <Button
-            title="Reset"
-            onPress={handleReset}
-            disabled={isProcessing}
-            variant="secondary"
-            style={styles.controlButton}
-          />
-          <Button
             title="Random Maze"
             onPress={handleRandomMaze}
             disabled={isProcessing}
             variant="success"
             style={styles.controlButton}
           />
+          <Button
+            title="Restart"
+            onPress={handleReset}
+            disabled={isProcessing}
+            variant="secondary"
+            style={styles.controlButton}
+          />
         </View>
+
+        <Legend />
 
         <View style={styles.info}>
           <Text style={styles.infoTitle}>About Algorithms:</Text>
@@ -231,6 +236,16 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 14,
     color: "#666",
+  },
+  mazeSection: {
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  stateLabel: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: 15,
   },
   mazeContainer: {
     alignItems: "center",

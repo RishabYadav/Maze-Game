@@ -35,60 +35,65 @@ export const PREDEFINED_MAZE = [
 ];
 
 /**
- * Generate a random maze using recursive backtracking
+ * Generate a random maze with guaranteed path from start to end
  */
 export const generateRandomMaze = (rows = 21, cols = 21) => {
+  // Initialize maze with all empty cells
   const maze = Array(rows)
     .fill(null)
-    .map(() => Array(cols).fill(CELL_TYPES.WALL));
+    .map(() => Array(cols).fill(CELL_TYPES.EMPTY));
 
-  const stack = [];
-  const startRow = 1;
-  const startCol = 1;
-
-  maze[startRow][startCol] = CELL_TYPES.EMPTY;
-  stack.push([startRow, startCol]);
-
-  const directions = [
-    [-2, 0],
-    [2, 0],
-    [0, -2],
-    [0, 2],
-  ];
-
-  while (stack.length > 0) {
-    const [row, col] = stack[stack.length - 1];
-
-    const neighbors = [];
-    for (const [dr, dc] of directions) {
-      const newRow = row + dr;
-      const newCol = col + dc;
-
-      if (
-        newRow > 0 &&
-        newRow < rows - 1 &&
-        newCol > 0 &&
-        newCol < cols - 1 &&
-        maze[newRow][newCol] === CELL_TYPES.WALL
-      ) {
-        neighbors.push([newRow, newCol, row + dr / 2, col + dc / 2]);
+  // Add random walls (but not too many to ensure path exists)
+  const wallDensity = 0.3; // 30% walls
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      if (Math.random() < wallDensity) {
+        maze[row][col] = CELL_TYPES.WALL;
       }
-    }
-
-    if (neighbors.length > 0) {
-      const [newRow, newCol, wallRow, wallCol] =
-        neighbors[Math.floor(Math.random() * neighbors.length)];
-      maze[newRow][newCol] = CELL_TYPES.EMPTY;
-      maze[wallRow][wallCol] = CELL_TYPES.EMPTY;
-      stack.push([newRow, newCol]);
-    } else {
-      stack.pop();
     }
   }
 
-  // Set start and end
+  // Set START and END
   maze[0][0] = CELL_TYPES.START;
   maze[rows - 1][cols - 1] = CELL_TYPES.END;
+
+  // Clear a guaranteed path from start to end (snake path)
+  // This ensures there's always at least one valid path
+  let currentRow = 0;
+  let currentCol = 0;
+
+  // Move right and down alternatively to create a guaranteed path
+  while (currentRow < rows - 1 || currentCol < cols - 1) {
+    maze[currentRow][currentCol] = CELL_TYPES.EMPTY;
+
+    // Randomly choose to go right or down (if possible)
+    if (currentRow === rows - 1) {
+      // Can only go right
+      currentCol++;
+    } else if (currentCol === cols - 1) {
+      // Can only go down
+      currentRow++;
+    } else {
+      // Can go either direction - choose randomly
+      if (Math.random() < 0.5) {
+        currentCol++;
+      } else {
+        currentRow++;
+      }
+    }
+  }
+
+  // Ensure START and END are not walls
+  maze[0][0] = CELL_TYPES.START;
+  maze[rows - 1][cols - 1] = CELL_TYPES.END;
+
+  // Clear immediate neighbors of START
+  if (rows > 1) maze[1][0] = CELL_TYPES.EMPTY;
+  if (cols > 1) maze[0][1] = CELL_TYPES.EMPTY;
+
+  // Clear immediate neighbors of END
+  if (rows > 1) maze[rows - 2][cols - 1] = CELL_TYPES.EMPTY;
+  if (cols > 1) maze[rows - 1][cols - 2] = CELL_TYPES.EMPTY;
 
   return maze;
 };
