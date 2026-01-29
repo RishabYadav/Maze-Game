@@ -2,7 +2,19 @@
 
 A sophisticated React Native application that solves mazes using multiple pathfinding algorithms (BFS, DFS, A*) with beautiful real-time visualization.
 
-## 📋 About the Assignment
+## � Screenshots
+
+<div align="center">
+  
+### Solved Maze with Path Visualization
+![Maze Solved](screenshots/maze-solved.png)
+
+### Random Maze with Results
+![Random Maze](screenshots/random-maze.png)
+
+</div>
+
+## �📋 About the Assignment
 
 This project implements a complete maze-solving engine with the following capabilities:
 - **Multiple Pathfinding Algorithms**: BFS (Breadth-First Search), DFS (Depth-First Search), and A* (A-star)
