@@ -1,14 +1,20 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-const Button = ({ title, onPress, disabled = false, style, variant = 'primary' }) => {
+const Button = ({
+  title,
+  onPress,
+  disabled = false,
+  style,
+  variant = "primary",
+}) => {
   const getVariantStyle = () => {
     switch (variant) {
-      case 'secondary':
+      case "secondary":
         return styles.secondary;
-      case 'success':
+      case "success":
         return styles.success;
-      case 'danger':
+      case "danger":
         return styles.danger;
       default:
         return styles.primary;
@@ -39,38 +45,38 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     minWidth: 100,
     elevation: 2,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
   primary: {
-    backgroundColor: '#2196F3',
+    backgroundColor: "#2196F3",
   },
   secondary: {
-    backgroundColor: '#757575',
+    backgroundColor: "#757575",
   },
   success: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: "#4CAF50",
   },
   danger: {
-    backgroundColor: '#f44336',
+    backgroundColor: "#f44336",
   },
   disabled: {
-    backgroundColor: '#cccccc',
+    backgroundColor: "#cccccc",
     elevation: 0,
   },
   text: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   disabledText: {
-    color: '#999999',
+    color: "#999999",
   },
 });
 

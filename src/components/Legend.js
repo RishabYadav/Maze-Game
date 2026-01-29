@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 const Legend = () => {
   return (
@@ -41,25 +41,25 @@ const Legend = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
     padding: 12,
     borderRadius: 8,
     marginVertical: 10,
   },
   title: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
-    color: '#333',
+    color: "#333",
   },
   legendRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginVertical: 4,
   },
   legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flex: 1,
   },
   box: {
@@ -67,29 +67,29 @@ const styles = StyleSheet.create({
     height: 20,
     marginRight: 6,
     borderWidth: 1,
-    borderColor: '#999',
+    borderColor: "#999",
   },
   text: {
     fontSize: 12,
-    color: '#555',
+    color: "#555",
   },
   start: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: "#4CAF50",
   },
   end: {
-    backgroundColor: '#f44336',
+    backgroundColor: "#f44336",
   },
   wall: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: "#1a1a1a",
   },
   empty: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
   },
   explored: {
-    backgroundColor: '#FFE082',
+    backgroundColor: "#FFE082",
   },
   path: {
-    backgroundColor: '#2196F3',
+    backgroundColor: "#2196F3",
   },
 });
 

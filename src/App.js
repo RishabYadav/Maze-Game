@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -8,10 +8,10 @@ import {
   StatusBar,
   Dimensions,
   Alert,
-} from 'react-native';
-import MazeGrid from './components/MazeGrid';
-import Button from './components/Button';
-import Legend from './components/Legend';
+} from "react-native";
+import MazeGrid from "./components/MazeGrid";
+import Button from "./components/Button";
+import Legend from "./components/Legend";
 import {
   PREDEFINED_MAZE,
   CELL_TYPES,
@@ -19,15 +19,15 @@ import {
   resetMazeVisualization,
   findStartEnd,
   generateRandomMaze,
-} from './utils/mazeUtils';
-import { solveBFS, solveDFS, solveAStar } from './algorithms/pathfinding';
+} from "./utils/mazeUtils";
+import { solveBFS, solveDFS, solveAStar } from "./algorithms/pathfinding";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const App = () => {
   const [maze, setMaze] = useState(PREDEFINED_MAZE);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState('BFS');
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState("BFS");
   const [stats, setStats] = useState(null);
 
   // Calculate cell size based on screen width
@@ -56,7 +56,7 @@ const App = () => {
     const { start, end } = findStartEnd(cleanMaze);
 
     if (!start || !end) {
-      Alert.alert('Error', 'Start or End point not found in maze!');
+      Alert.alert("Error", "Start or End point not found in maze!");
       setIsProcessing(false);
       return;
     }
@@ -69,9 +69,9 @@ const App = () => {
         setTimeout(() => {
           setMaze((prevMaze) => {
             const newMaze = copyMaze(prevMaze);
-            if (step.type === 'explore') {
+            if (step.type === "explore") {
               newMaze[step.row][step.col] = CELL_TYPES.EXPLORED;
-            } else if (step.type === 'path') {
+            } else if (step.type === "path") {
               newMaze[step.row][step.col] = CELL_TYPES.PATH;
             }
             return newMaze;
@@ -84,13 +84,13 @@ const App = () => {
     let result;
     try {
       switch (selectedAlgorithm) {
-        case 'BFS':
+        case "BFS":
           result = await solveBFS(cleanMaze, start, end, updateCallback);
           break;
-        case 'DFS':
+        case "DFS":
           result = await solveDFS(cleanMaze, start, end, updateCallback);
           break;
-        case 'A*':
+        case "A*":
           result = await solveAStar(cleanMaze, start, end, updateCallback);
           break;
         default:
@@ -108,11 +108,14 @@ const App = () => {
       });
 
       if (!result.found) {
-        Alert.alert('No Path Found', 'There is no valid path from Start to End!');
+        Alert.alert(
+          "No Path Found",
+          "There is no valid path from Start to End!",
+        );
       }
     } catch (error) {
-      console.error('Error solving maze:', error);
-      Alert.alert('Error', 'An error occurred while solving the maze');
+      console.error("Error solving maze:", error);
+      Alert.alert("Error", "An error occurred while solving the maze");
     }
 
     setIsProcessing(false);
@@ -138,30 +141,24 @@ const App = () => {
         {stats && (
           <View style={styles.statsContainer}>
             <Text style={styles.statsTitle}>Results:</Text>
+            <Text style={styles.statsText}>Algorithm: {stats.algorithm}</Text>
             <Text style={styles.statsText}>
-              Algorithm: {stats.algorithm}
+              Status: {stats.found ? "✅ Path Found" : "❌ No Path"}
             </Text>
-            <Text style={styles.statsText}>
-              Status: {stats.found ? '✅ Path Found' : '❌ No Path'}
-            </Text>
-            <Text style={styles.statsText}>
-              Steps Processed: {stats.steps}
-            </Text>
-            <Text style={styles.statsText}>
-              Time: {stats.time}ms
-            </Text>
+            <Text style={styles.statsText}>Steps Processed: {stats.steps}</Text>
+            <Text style={styles.statsText}>Time: {stats.time}ms</Text>
           </View>
         )}
 
         <View style={styles.algorithmSelector}>
           <Text style={styles.sectionTitle}>Select Algorithm:</Text>
           <View style={styles.algorithmButtons}>
-            {['BFS', 'DFS', 'A*'].map((algo) => (
+            {["BFS", "DFS", "A*"].map((algo) => (
               <Button
                 key={algo}
                 title={algo}
                 onPress={() => setSelectedAlgorithm(algo)}
-                variant={selectedAlgorithm === algo ? 'success' : 'secondary'}
+                variant={selectedAlgorithm === algo ? "success" : "secondary"}
                 style={styles.algoButton}
                 disabled={isProcessing}
               />
@@ -196,15 +193,16 @@ const App = () => {
         <View style={styles.info}>
           <Text style={styles.infoTitle}>About Algorithms:</Text>
           <Text style={styles.infoText}>
-            • <Text style={styles.bold}>BFS</Text> (Breadth-First Search): Guarantees
-            shortest path
+            • <Text style={styles.bold}>BFS</Text> (Breadth-First Search):
+            Guarantees shortest path
           </Text>
           <Text style={styles.infoText}>
-            • <Text style={styles.bold}>DFS</Text> (Depth-First Search): Explores deeply,
-            may not find shortest path
+            • <Text style={styles.bold}>DFS</Text> (Depth-First Search):
+            Explores deeply, may not find shortest path
           </Text>
           <Text style={styles.infoText}>
-            • <Text style={styles.bold}>A*</Text>: Optimal pathfinding with heuristic
+            • <Text style={styles.bold}>A*</Text>: Optimal pathfinding with
+            heuristic
           </Text>
         </View>
       </ScrollView>
@@ -215,27 +213,27 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   scrollContent: {
     padding: 20,
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 20,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
   },
   mazeContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginVertical: 15,
   },
   algorithmSelector: {
@@ -243,21 +241,21 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 10,
-    color: '#333',
+    color: "#333",
   },
   algorithmButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   algoButton: {
     flex: 1,
     marginHorizontal: 5,
   },
   controls: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginVertical: 15,
   },
   controlButton: {
@@ -265,42 +263,42 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   statsContainer: {
-    backgroundColor: '#e3f2fd',
+    backgroundColor: "#e3f2fd",
     padding: 15,
     borderRadius: 8,
     marginVertical: 10,
   },
   statsTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
-    color: '#1976d2',
+    color: "#1976d2",
   },
   statsText: {
     fontSize: 14,
-    color: '#333',
+    color: "#333",
     marginVertical: 2,
   },
   info: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
     padding: 15,
     borderRadius: 8,
     marginTop: 15,
   },
   infoTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
-    color: '#333',
+    color: "#333",
   },
   infoText: {
     fontSize: 13,
-    color: '#555',
+    color: "#555",
     marginVertical: 3,
     lineHeight: 20,
   },
   bold: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 

@@ -38,35 +38,46 @@ export const PREDEFINED_MAZE = [
  * Generate a random maze using recursive backtracking
  */
 export const generateRandomMaze = (rows = 21, cols = 21) => {
-  const maze = Array(rows).fill(null).map(() => Array(cols).fill(CELL_TYPES.WALL));
-  
+  const maze = Array(rows)
+    .fill(null)
+    .map(() => Array(cols).fill(CELL_TYPES.WALL));
+
   const stack = [];
   const startRow = 1;
   const startCol = 1;
-  
+
   maze[startRow][startCol] = CELL_TYPES.EMPTY;
   stack.push([startRow, startCol]);
-  
+
   const directions = [
-    [-2, 0], [2, 0], [0, -2], [0, 2]
+    [-2, 0],
+    [2, 0],
+    [0, -2],
+    [0, 2],
   ];
-  
+
   while (stack.length > 0) {
     const [row, col] = stack[stack.length - 1];
-    
+
     const neighbors = [];
     for (const [dr, dc] of directions) {
       const newRow = row + dr;
       const newCol = col + dc;
-      
-      if (newRow > 0 && newRow < rows - 1 && newCol > 0 && newCol < cols - 1 && 
-          maze[newRow][newCol] === CELL_TYPES.WALL) {
+
+      if (
+        newRow > 0 &&
+        newRow < rows - 1 &&
+        newCol > 0 &&
+        newCol < cols - 1 &&
+        maze[newRow][newCol] === CELL_TYPES.WALL
+      ) {
         neighbors.push([newRow, newCol, row + dr / 2, col + dc / 2]);
       }
     }
-    
+
     if (neighbors.length > 0) {
-      const [newRow, newCol, wallRow, wallCol] = neighbors[Math.floor(Math.random() * neighbors.length)];
+      const [newRow, newCol, wallRow, wallCol] =
+        neighbors[Math.floor(Math.random() * neighbors.length)];
       maze[newRow][newCol] = CELL_TYPES.EMPTY;
       maze[wallRow][wallCol] = CELL_TYPES.EMPTY;
       stack.push([newRow, newCol]);
@@ -74,11 +85,11 @@ export const generateRandomMaze = (rows = 21, cols = 21) => {
       stack.pop();
     }
   }
-  
+
   // Set start and end
   maze[0][0] = CELL_TYPES.START;
   maze[rows - 1][cols - 1] = CELL_TYPES.END;
-  
+
   return maze;
 };
 
@@ -88,7 +99,7 @@ export const generateRandomMaze = (rows = 21, cols = 21) => {
 export const findStartEnd = (maze) => {
   let start = null;
   let end = null;
-  
+
   for (let row = 0; row < maze.length; row++) {
     for (let col = 0; col < maze[0].length; col++) {
       if (maze[row][col] === CELL_TYPES.START) {
@@ -98,7 +109,7 @@ export const findStartEnd = (maze) => {
       }
     }
   }
-  
+
   return { start, end };
 };
 
@@ -109,22 +120,26 @@ export const getNeighbors = (maze, row, col) => {
   const neighbors = [];
   const directions = [
     [-1, 0], // Up
-    [0, 1],  // Right
-    [1, 0],  // Down
+    [0, 1], // Right
+    [1, 0], // Down
     [0, -1], // Left
   ];
-  
+
   for (const [dr, dc] of directions) {
     const newRow = row + dr;
     const newCol = col + dc;
-    
-    if (newRow >= 0 && newRow < maze.length && 
-        newCol >= 0 && newCol < maze[0].length &&
-        maze[newRow][newCol] !== CELL_TYPES.WALL) {
+
+    if (
+      newRow >= 0 &&
+      newRow < maze.length &&
+      newCol >= 0 &&
+      newCol < maze[0].length &&
+      maze[newRow][newCol] !== CELL_TYPES.WALL
+    ) {
       neighbors.push({ row: newRow, col: newCol });
     }
   }
-  
+
   return neighbors;
 };
 
@@ -132,19 +147,23 @@ export const getNeighbors = (maze, row, col) => {
  * Create a copy of the maze
  */
 export const copyMaze = (maze) => {
-  return maze.map(row => [...row]);
+  return maze.map((row) => [...row]);
 };
 
 /**
  * Reset maze visualization (remove path and explored cells)
  */
 export const resetMazeVisualization = (maze) => {
-  return maze.map(row => 
-    row.map(cell => {
-      if (cell === CELL_TYPES.PATH || cell === CELL_TYPES.EXPLORED || cell === CELL_TYPES.CURRENT) {
+  return maze.map((row) =>
+    row.map((cell) => {
+      if (
+        cell === CELL_TYPES.PATH ||
+        cell === CELL_TYPES.EXPLORED ||
+        cell === CELL_TYPES.CURRENT
+      ) {
         return CELL_TYPES.EMPTY;
       }
       return cell;
-    })
+    }),
   );
 };

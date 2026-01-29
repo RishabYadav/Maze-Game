@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { CELL_TYPES } from '../utils/mazeUtils';
+import React from "react";
+import { View, StyleSheet, Dimensions } from "react-native";
+import { CELL_TYPES } from "../utils/mazeUtils";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const Cell = ({ type, size }) => {
   const getCellStyle = () => {
@@ -24,7 +24,9 @@ const Cell = ({ type, size }) => {
   };
 
   return (
-    <View style={[styles.cell, { width: size, height: size }, getCellStyle()]} />
+    <View
+      style={[styles.cell, { width: size, height: size }, getCellStyle()]}
+    />
   );
 };
 
@@ -47,33 +49,33 @@ const MazeGrid = ({ maze, cellSize }) => {
 const styles = StyleSheet.create({
   container: {
     borderWidth: 2,
-    borderColor: '#000',
-    alignSelf: 'center',
+    borderColor: "#000",
+    alignSelf: "center",
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   cell: {
     borderWidth: 0.5,
-    borderColor: '#e0e0e0',
+    borderColor: "#e0e0e0",
   },
   empty: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
   },
   wall: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: "#1a1a1a",
   },
   start: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: "#4CAF50",
   },
   end: {
-    backgroundColor: '#f44336',
+    backgroundColor: "#f44336",
   },
   path: {
-    backgroundColor: '#2196F3',
+    backgroundColor: "#2196F3",
   },
   explored: {
-    backgroundColor: '#FFE082',
+    backgroundColor: "#FFE082",
   },
 });
 
