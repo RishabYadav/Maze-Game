@@ -6,11 +6,13 @@ A sophisticated React Native application that solves mazes using multiple pathfi
 
 <div align="center">
   
-### Solved Maze with Path Visualization
-![Maze Solved](screenshots/maze-solved.png)
+
 
 ### Random Maze with Results
 ![Random Maze](screenshots/random-maze.png)
+
+### Various Options
+![Maze Solved](screenshots/maze-solved.png)
 
 </div>
 
